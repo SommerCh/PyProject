@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buzzword Detector</title>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+
+  <body>
+    <main class="page">
+      <header class="header">
+        <h1 class="h1">Buzzword Detector</h1>
+      </header>
+
+      <section class="email">
+        <div class="mail flex">
+          <p class="headlines h3">TIL:</p>
+          <p class="p">alle@virksomhed.dk</p>
+        </div>
+
+        <div class="mail flex">
+          <p class="headlines h3">EMNE:</p>
+          <p class="p">Nyt IT-system - hvad betyder det for dig?</p>
+        </div>
+      </section>
+
+      <form method="POST">
+        <textarea
+          class="h2"
+          name="mail"
+          id="mail"
+          placeholder="Skriv din mail her..."
+        >
+{{ text }}</textarea
+        >
+
+        <div class="analyzeWrap flex">
+          <button class="button" type="submit">ANALYSER</button>
+        </div>
+
+        {% if text %}
+        <section class="results">
+          <p class="wordCount p">
+            {{ found|length }} buzzwords · {{ wordCount }} ord i alt
+          </p>
+
+          <div class="status h3 {{ statusColor }}">{{ statusText }}</div>
+
+          {% if canSendButton %}
+          <button class="send flex button" type="button">SEND</button>
+
+          {% else %}
+
+          <button class="send flex button" type="button" disabled>
+            <img
+              class="lock"
+              src="{{ url_for('static', filename='lock.png') }}"
+              alt="lock"
+            />
+
+            KAN IKKE SENDES
+          </button>
+          {% endif %}
+        </section>
+
+        {% if found %}
+        <details class="buzzwordBox" open>
+          <summary class="buzzwordTitle p">
+            <span> Fundne buzzwords ({{ found|length }}) </span>
+
+            <span class="togglePil">▾</span>
+          </summary>
+
+          <ul class="buzzwordList">
+            {% for word in found %}
+
+            <li class="buzzwordChip">
+              <details class="wordDetails">
+                <summary class="chipSummary p">
+                  <span>{{ word }}</span>
+
+                  <span class="togglePil">▾</span>
+                </summary>
+
+                <div class="replaceBox">
+                  <input
+                    type="text"
+                    name="newWord_{{ loop.index0 }}"
+                    placeholder="med egne ord.."
+                  />
+
+                  <input
+                    type="hidden"
+                    name="oldWord_{{ loop.index0 }}"
+                    value="{{ word }}"
+                  />
+
+                  <button
+                    class="addButton h3"
+                    type="submit"
+                    name="replaceWord"
+                    value="{{ loop.index0 }}"
+                  >
+                    ERSTAT
+                  </button>
+                </div>
+              </details>
+            </li>
+
+            {% endfor %}
+          </ul>
+
+          <!-- <div class="addBuzzword h3">
+            <input type="text" name="newWord" placeholder="Tilføj nyt ord" />
+
+            <button
+              class="addButton h3"
+              type="submit"
+              name="addWord"
+              value="add"
+            >
+              TILFØJ
+            </button>
+          </div> -->
+        </details>
+        {% endif %} {% endif %}
+      </form>
+    </main>
+
+    <script>
+      const form = document.querySelector("form");
+
+      form.addEventListener("submit", function () {
+        sessionStorage.setItem("scrollPosition", window.scrollY);
+      });
+
+      window.addEventListener("load", function () {
+        const scrollPosition = sessionStorage.getItem("scrollPosition");
+
+        if (scrollPosition) {
+          window.scrollTo(0, scrollPosition);
+          sessionStorage.removeItem("scrollPosition");
+        }
+      });
+    </script>
+  </body>
+</html>

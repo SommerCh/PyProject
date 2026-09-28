@@ -1,0 +1,320 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.h1 {
+  font-size: 20px;
+}
+
+.h2 {
+  font-size: 16px;
+  width: 100%;
+  min-height: 300px;
+  padding: 28px;
+  border: 0;
+  outline: none;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.h3 {
+  font-size: 12px;
+}
+
+.p {
+  font-size: 14px;
+}
+
+.flex {
+  display: flex;
+}
+
+html {
+  background-color: #f5f6f8;
+}
+
+body {
+  padding: 40px 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #0e0e10;
+}
+
+.page {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  overflow: hidden;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+}
+
+.header {
+  padding: 22px 28px;
+  background-color: #394453;
+  color: white;
+}
+
+.email {
+  background-color: #fafafa;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.mail {
+  align-items: center;
+  gap: 10px;
+  min-height: 60px;
+  padding: 0 28px;
+}
+
+.mail + .mail {
+  border-top: 1px solid #e5e7eb;
+}
+
+.headlines {
+  width: 55px;
+  color: #8a8a8a;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.mailText::placeholder {
+  color: #b0b0b0;
+}
+
+.mailText:focus {
+  background-color: #fdfdfd;
+}
+
+.analyzeWrap {
+  justify-content: flex-end;
+  padding: 14px 28px;
+  border-top: 1px solid #eeeeee;
+}
+
+.button {
+  min-height: 40px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 8px;
+  background-color: #394453;
+  color: white;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #4a5869;
+}
+
+.button:disabled {
+  background-color: #f0f0f0;
+  color: #999999;
+  cursor: not-allowed;
+}
+
+.results {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 28px;
+  border-top: 1px solid #eeeeee;
+}
+
+.wordCount {
+  color: #666666;
+}
+
+.status {
+  padding: 7px 13px;
+  border-radius: 16px;
+}
+
+.green {
+  background-color: #e2f6e7;
+  color: #23763a;
+}
+
+.yellow {
+  background-color: #fff4cf;
+  color: #806500;
+}
+
+.red {
+  background-color: #fde4e4;
+  color: #a52d2d;
+}
+
+.send {
+  align-items: center;
+  gap: 8px;
+}
+
+.lock {
+  width: 17px;
+  height: 17px;
+  opacity: 0.6;
+}
+
+.buzzwordBox {
+  margin: 0 28px 24px;
+  border-top: 1px solid #eeeeee;
+}
+
+.buzzwordBox > summary {
+  padding: 18px 0;
+  color: #555555;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.buzzwordTitle {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.buzzwordList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-bottom: 20px;
+  list-style: none;
+}
+
+.buzzwordChip {
+  list-style: none;
+}
+
+.wordDetails {
+  background-color: #f0f1f3;
+  border-radius: 20px;
+}
+
+.chipSummary {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 11px;
+  color: #4b4b4b;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+details > summary {
+  list-style: none;
+}
+
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.togglePil {
+  display: inline-block;
+  font-size: 12px;
+  color: #777777;
+  transition: transform 0.25s ease;
+}
+
+details[open] > summary .togglePil {
+  transform: rotate(180deg);
+}
+
+.replaceBox {
+  display: flex;
+  gap: 8px;
+  padding: 10px 11px 11px;
+  animation: openBox 0.2s ease;
+}
+
+@keyframes openBox {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.replaceBox input {
+  width: 160px;
+  padding: 8px 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  outline: none;
+  font-family: inherit;
+}
+
+.replaceBox input:focus {
+  border-color: #394453;
+}
+
+.addBuzzword {
+  display: flex;
+  gap: 8px;
+  padding: 0 0 20px 0;
+}
+
+.addBuzzword input {
+  width: 220px;
+  padding: 10px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  outline: none;
+  font-family: inherit;
+}
+
+.addBuzzword input:focus {
+  border-color: #394453;
+}
+
+.addBuzzword input::placeholder {
+  color: #999999;
+}
+
+.addButton {
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 8px;
+  background-color: #394453;
+  color: white;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.addButton:hover {
+  background-color: #4a5869;
+}
+
+@media (max-width: 650px) {
+  body {
+    padding: 12px;
+  }
+
+  .page {
+    border-radius: 10px;
+  }
+
+  .results {
+    grid-template-columns: 1fr;
+  }
+
+  .status {
+    width: fit-content;
+  }
+
+  .send {
+    justify-content: center;
+  }
+}
