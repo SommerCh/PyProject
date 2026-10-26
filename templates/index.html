@@ -79,9 +79,9 @@
           <ul class="buzzwordList">
             {% for word in found %}
 
-            <li class="buzzwordChip">
+            <li class="buzzwordWrap">
               <details class="wordDetails">
-                <summary class="chipSummary p">
+                <summary class="wordSummary p">
                   <span>{{ word }}</span>
 
                   <span class="togglePil">▾</span>
@@ -111,7 +111,6 @@
                 </div>
               </details>
             </li>
-
             {% endfor %}
           </ul>
 

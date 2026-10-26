@@ -28,10 +28,9 @@ def home():
 # Hent
     if request.method == "POST":
         text = request.form["mail"]
-
+# Slet
         # if "deleteWord" in request.form:  # Den er nødt til at være før found = findBuzzwords(text)
         #     word = request.form["deleteWord"]
-            
         #     BUZZWORD.remove(word)
 
         if "addWord" in request.form:
@@ -69,8 +68,8 @@ def home():
         canSendButton = False
 
 
-# Python og HTML deler ikke data. Åbner og viser index.html. Sender Python-variablerne til HTML.
-# Venstre side = Navnet i HTML - Højre side = Navnet i Python
+# Python og HTML deler ikke data. Åbner og viser index.html. Sender Python variablerne til HTML.
+# Venstre side = Navnet i HTML | Højre side = Navnet i Python
     return render_template(
         "index.html",
         text = text,
@@ -107,7 +106,6 @@ def findBuzzwords(text): # Opretter funktionen findBuzzwords. Den modtager en te
 #                 "word": word,
 #                 "forslag": FORSLAG[word]
 #             })
-
 #     return forslag
 
 
@@ -127,11 +125,6 @@ def colorWords(text, found):
         )
 
     return colorText
-
-
-
-# test_text = "Vi skal skabe alignment og arbejde mere agilt fremadrettet"
-# print(findBuzzwords(test_text))
 
 
 print("Virker")
