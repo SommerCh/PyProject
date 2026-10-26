@@ -45,13 +45,13 @@
 
         {% if text %}
         <section class="results">
-          <p class="wordCount p">
-            {{ found|length }} buzzwords · {{ wordCount }} ord i alt
+          <p class="word_count p">
+            {{ found|length }} buzzwords · {{ word_count }} ord i alt
           </p>
 
-          <div class="status h3 {{ statusColor }}">{{ statusText }}</div>
+          <div class="status h3 {{ status_color }}">{{ status_text }}</div>
 
-          {% if canSendButton %}
+          {% if can_send_button %}
           <button class="send flex button" type="button">SEND</button>
 
           {% else %}
@@ -90,20 +90,20 @@
                 <div class="replaceBox">
                   <input
                     type="text"
-                    name="newWord_{{ loop.index0 }}"
+                    name="new_word_{{ loop.index0 }}"
                     placeholder="med egne ord.."
                   />
 
                   <input
                     type="hidden"
-                    name="oldWord_{{ loop.index0 }}"
+                    name="old_word_{{ loop.index0 }}"
                     value="{{ word }}"
                   />
 
                   <button
                     class="addButton h3"
                     type="submit"
-                    name="replaceWord"
+                    name="replace_word"
                     value="{{ loop.index0 }}"
                   >
                     ERSTAT

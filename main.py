@@ -8,15 +8,15 @@ app = Flask(__name__)
 def home():
 
 # Initialisering    
-    text = ""
-    found = []
-    word_count = 0
-    buzzword_number = 0
-    can_send_button = True
-    color_text = ""
-    status_text = ""
-    status_color = ""
-    forslag = []
+    text=""
+    found=[]
+    word_count=0
+    buzzword_number=0
+    can_send_button=True
+    color_text=""
+    status_text=""
+    status_color=""
+    forslag=[]
 
 # Hent
     if request.method == "POST":
@@ -58,19 +58,20 @@ def home():
 
     return render_template(
         "index.html",
-        text = text,
-        found = found,
-        word_count = word_count,
-        buzzword_number = buzzword_number,
-        can_send_button = can_send_button,
-        color_text = color_text,
-        status_text = status_text,
-        status_color = status_color,
-        forslag = forslag
+        text=text,
+        found=found,
+        word_count=word_count,
+        buzzword_number=buzzword_number,
+        can_send_button=can_send_button,
+        color_text=color_text,
+        status_text=status_text,
+        status_color=status_color,
+        forslag=forslag
     )
 
 # Find ord
 def find_buzzwords(text): 
+    """Søger og returnerer liste med buzzwords"""
     found = [] 
 
     for word in BUZZWORD: 
@@ -81,11 +82,13 @@ def find_buzzwords(text):
     return found 
 
 def replace_buzzword(text, old_word, new_word):
+    """Erstatter buzzword med et nyt ord"""
     text = text.replace(old_word, new_word)
     return text
 
 # Baggrunds farve
 def color_words(text, found):
+    """Baggrundsfarve til fundne buzzwords i mail"""
     color_text = text
 
     for word in found:
