@@ -1,131 +1,100 @@
 from buzzword import BUZZWORD, FORSLAG
 from flask import Flask, render_template, request 
 
-# Bruger 3 ting fra flask; 
-# Flask til at gøre det til en webudgave.
-# Render template til at vise HTML-side og sende data fra Python videre til din HTML (aom antal ord)
-# Request til at hente det brugeren sender fra browseren.
 
 app = Flask(__name__)
 
-
 @app.route("/", methods=["GET", "POST"])
-
 def home():
 
-# Typer    
+# Initialisering    
     text = ""
     found = []
-    wordCount = 0
-    buzzWordNumber = 0
-    canSendButton = True
-    colorText = ""
-    statusText = ""
-    statusColor = ""
+    word_count = 0
+    buzzword_number = 0
+    can_send_button = True
+    color_text = ""
+    status_text = ""
+    status_color = ""
     forslag = []
-  
 
 # Hent
     if request.method == "POST":
         text = request.form["mail"]
-# Slet
-        # if "deleteWord" in request.form:  # Den er nødt til at være før found = findBuzzwords(text)
-        #     word = request.form["deleteWord"]
-        #     BUZZWORD.remove(word)
 
-        if "addWord" in request.form:
-            newWord = request.form["newWord"]
-            print("Nyt buzzword:", newWord)
+# Tilføj
+        if "add_word" in request.form:
+            new_word = request.form["new_word"]
+            print("Nyt buzzword:", new_word)
 
-            if newWord != "":
-                BUZZWORD.append(newWord)
+            if new_word != "":
+                BUZZWORD.append(new_word)
 
-        if "replaceWord" in request.form:
-            number = request.form["replaceWord"]
-            oldWord = request.form["oldWord_" + number]
-            newWord = request.form["newWord_" + number]
+        if "replace_word" in request.form:
+            number = request.form["replace_word"]
+            old_word = request.form["old_word_" + number]
+            new_word = request.form["new_word_" + number]
 
-            if newWord != "":
-                text = erstatBuzzword(text, oldWord, newWord)
+            if new_word != "":
+                text = replace_buzzword(text, old_word, new_word)
 
-        found = findBuzzwords(text) # Sender teksten ind i funktionen findBuzzwords(). Ordene gemmes i found.
-        wordCount = len(text.split()) # Opdeler teksten i ord. len() tæller ordene. Tallet gemmes i wordCount
-        buzzWordNumber = len(found) # Listen med fundne buzzwords. len() tæller, hvor mange forskellige buzzwords listen indeholder. Tallet gemmes i buzzWordNumber
-
+        found = find_buzzwords(text) 
+        word_count = len(text.split()) 
+        buzzword_number = len(found) 
 
 # Antal buzzwords
-    if buzzWordNumber <= 2:
-        statusText = "Godkendt"
-        statusColor = "green"
-        canSendButton = True
-    elif buzzWordNumber <= 4:
-        statusText = "Bør forbedres"
-        statusColor = "yellow"
-        canSendButton = True
+    if buzzword_number <= 2:
+        status_text = "Godkendt"
+        status_color = "green"
+        can_send_button = True
+    elif buzzword_number <= 4:
+        status_text = "Bør forbedres"
+        status_color = "yellow"
+        can_send_button = True
     else:
-        statusText = "For mange buzzwords"
-        statusColor = "red"
-        canSendButton = False
+        status_text = "For mange buzzwords"
+        status_color = "red"
+        can_send_button = False
 
-
-# Python og HTML deler ikke data. Åbner og viser index.html. Sender Python variablerne til HTML.
-# Venstre side = Navnet i HTML | Højre side = Navnet i Python
     return render_template(
         "index.html",
         text = text,
         found = found,
-        wordCount = wordCount,
-        buzzWordNumber = buzzWordNumber,
-        canSendButton = canSendButton,
-        colorText = colorText,
-        statusText = statusText,
-        statusColor = statusColor,
+        word_count = word_count,
+        buzzword_number = buzzword_number,
+        can_send_button = can_send_button,
+        color_text = color_text,
+        status_text = status_text,
+        status_color = status_color,
         forslag = forslag
     )
 
-
 # Find ord
-def findBuzzwords(text): # Opretter funktionen findBuzzwords. Den modtager en tekst.
-    found = [] # Opretter en tom liste, hvor de fundne buzzwords skal gemmes.
+def find_buzzwords(text): 
+    found = [] 
 
-    for word in BUZZWORD: # Gennemgår hvert ord i listen BUZZWORD, ét ad gangen.
-        if word.lower() in text.lower(): # Undersøger, om ordet findes i teksten. Gør det til små bogstaver
+    for word in BUZZWORD: 
+        if word.lower() in text.lower(): 
 
-            found.append(word) # Hvis ordet findes, tilføjes det til listen found.
+            found.append(word) 
 
-    return found # Sender listen med de fundne buzzwords tilbage til stedet, hvor funktionen blev kaldt:
+    return found 
 
-
-# Find forslag
-# def findForslag(found):
-#     forslag = []
-
-#     for word in found:
-#         if word in FORSLAG:
-#             forslag.append({
-#                 "word": word,
-#                 "forslag": FORSLAG[word]
-#             })
-#     return forslag
-
-
-def erstatBuzzword(text, oldWord, newWord):
-    text = text.replace(oldWord, newWord)
+def replace_buzzword(text, old_word, new_word):
+    text = text.replace(old_word, new_word)
     return text
 
-
 # Baggrunds farve
-def colorWords(text, found):
-    colorText = text
+def color_words(text, found):
+    color_text = text
 
     for word in found:
-        colorText = colorText.replace(
+        color_text = color_text.replace(
             word,
             f"<span class='color'>{word}</span>"
         )
 
-    return colorText
-
+    return color_text
 
 print("Virker")
 
