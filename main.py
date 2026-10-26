@@ -1,12 +1,46 @@
-from buzzword import buzzword, forslag
+from buzzword import BUZZWORD, FORSLAG
 from flask import Flask, render_template, request 
+
+class Buzzword:
+    def __init__(self, wordlist):
+        self.buzzwords = wordlist
+
+    # Find ord
+    def find_buzzwords(self, text):
+        found = []
+
+        for word in self.buzzwords:
+            if word.lower() in text.lower():
+                found.append(word)
+
+        return found
+    
+    # Erstat ord
+    def replace_buzzword(self, text, old_word, new_word):
+        text = text.replace(old_word, new_word)
+        return text
+
+    # Tilføj ord
+    def add_word(self, new):
+        new_word = new.strip()
+        if new_word == "": 
+            return
+            
+        for word in self.buzzwords:
+            if word.lower() == new_word.lower():
+                return
+                
+        self.buzzwords.append(new_word)
+
+    
+buzzword_detector = Buzzword(BUZZWORD)
 
 app = Flask(__name__)
 
 @app.route("/", methods=["GET", "POST"])
 def home():
 
-# Initialisering    
+    # Initialisering    
     text=""
     found=[]
     word_count=0
@@ -17,17 +51,15 @@ def home():
     status_color=""
     forslag=[]
 
-# Hent
+    # Hent
     if request.method == "POST":
         text = request.form["mail"]
 
-# Tilføj
+        # Tilføj
         if "add_word" in request.form:
             new_word = request.form["new_word"]
+            buzzword_detector.add_word(new_word)
             print("Nyt buzzword:", new_word)
-
-            if new_word != "":
-                buzzword.append(new_word)
 
         if "replace_word" in request.form:
             number = request.form["replace_word"]
@@ -35,13 +67,13 @@ def home():
             new_word = request.form["new_word_" + number]
 
             if new_word != "":
-                text = replace_buzzword(text, old_word, new_word)
+                text = buzzword_detector.replace_buzzword(text, old_word, new_word)
 
-        found = find_buzzwords(text) 
+        found = buzzword_detector.find_buzzwords(text) 
         word_count = len(text.split()) 
         buzzword_number = len(found) 
 
-# Antal buzzwords
+    # Antal buzzwords
     if buzzword_number <= 2:
         status_text = "Godkendt"
         status_color = "green"
@@ -68,36 +100,5 @@ def home():
         forslag=forslag
     )
 
-# Find ord
-def find_buzzwords(text): 
-    """Finder og returnerer listen med buzzwords"""
-    found = [] 
-
-    for word in buzzword: 
-        if word.lower() in text.lower(): 
-
-            found.append(word) 
-
-    return found 
-
-def replace_buzzword(text, old_word, new_word):
-    """Erstatter buzzword med et nyt ord"""
-    text = text.replace(old_word, new_word)
-    return text
-
-# Baggrunds farve
-def color_words(text, found):
-    """Baggrundsfarve til fundne buzzwords i mail"""
-    color_text = text
-
-    for word in found:
-        color_text = color_text.replace(
-            word,
-            f"<span class='color'>{word}</span>"
-        )
-
-    return color_text
-
-print("Virker")
 
 app.run(port=5004)
