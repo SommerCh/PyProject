@@ -70,7 +70,7 @@ def home():
 
 # Find ord
 def find_buzzwords(text): 
-    """Søger og returnerer liste med buzzwords"""
+    """Finder og returnerer listen med buzzwords"""
     found = [] 
 
     for word in buzzword: 
