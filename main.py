@@ -1,6 +1,5 @@
-from buzzword import BUZZWORD, FORSLAG
+from buzzword import buzzword, forslag
 from flask import Flask, render_template, request 
-
 
 app = Flask(__name__)
 
@@ -28,7 +27,7 @@ def home():
             print("Nyt buzzword:", new_word)
 
             if new_word != "":
-                BUZZWORD.append(new_word)
+                buzzword.append(new_word)
 
         if "replace_word" in request.form:
             number = request.form["replace_word"]
@@ -74,7 +73,7 @@ def find_buzzwords(text):
     """Søger og returnerer liste med buzzwords"""
     found = [] 
 
-    for word in BUZZWORD: 
+    for word in buzzword: 
         if word.lower() in text.lower(): 
 
             found.append(word) 
