@@ -1,4 +1,4 @@
-from buzzword import BUZZWORD, FORSLAG
+from buzzword import BUZZWORD
 from flask import Flask, render_template, request 
 
 class Buzzword:
@@ -20,18 +20,6 @@ class Buzzword:
         text = text.replace(old_word, new_word)
         return text
 
-    # Tilføj ord
-    def add_word(self, new):
-        new_word = new.strip()
-        if new_word == "": 
-            return
-            
-        for word in self.buzzwords:
-            if word.lower() == new_word.lower():
-                return
-                
-        self.buzzwords.append(new_word)
-
     
 buzzword_detector = Buzzword(BUZZWORD)
 
@@ -40,27 +28,22 @@ app = Flask(__name__)
 @app.route("/", methods=["GET", "POST"])
 def home():
 
-    # Initialisering    
-    text=""
-    found=[]
-    word_count=0
-    buzzword_number=0
-    can_send_button=True
-    color_text=""
-    status_text=""
-    status_color=""
-    forslag=[]
+    #     
+    text = ""
+    found = []
+    word_count = 0
+    buzzword_number = 0
+    can_send_button = True
+    color_text = ""
+    status_text = ""
+    status_color = ""
+    forslag = []
 
     # Hent
     if request.method == "POST":
         text = request.form["mail"]
 
         # Tilføj
-        if "add_word" in request.form:
-            new_word = request.form["new_word"]
-            buzzword_detector.add_word(new_word)
-            print("Nyt buzzword:", new_word)
-
         if "replace_word" in request.form:
             number = request.form["replace_word"]
             old_word = request.form["old_word_" + number]
@@ -89,16 +72,15 @@ def home():
 
     return render_template(
         "index.html",
-        text=text,
-        found=found,
-        word_count=word_count,
-        buzzword_number=buzzword_number,
-        can_send_button=can_send_button,
-        color_text=color_text,
-        status_text=status_text,
-        status_color=status_color,
-        forslag=forslag
+        text = text,
+        found = found,
+        word_count = word_count,
+        buzzword_number = buzzword_number,
+        can_send_button = can_send_button,
+        color_text = color_text,
+        status_text = status_text,
+        status_color = status_color,
+        forslag = forslag
     )
-
 
 app.run(port=5004)
