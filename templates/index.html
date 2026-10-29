@@ -50,12 +50,10 @@
           </p>
 
           <div class="status h3 {{ status_color }}">{{ status_text }}</div>
-
           {% if can_send_button %}
           <button class="send flex button" type="button">SEND</button>
 
           {% else %}
-
           <button class="send flex button" type="button" disabled>
             <img
               class="lock"
@@ -83,7 +81,6 @@
               <details class="wordDetails">
                 <summary class="wordSummary p">
                   <span>{{ word }}</span>
-
                   <span class="togglePil">▾</span>
                 </summary>
 
@@ -117,22 +114,5 @@
         {% endif %} {% endif %}
       </form>
     </main>
-
-    <script>
-      const form = document.querySelector("form");
-
-      form.addEventListener("submit", function () {
-        sessionStorage.setItem("scrollPosition", window.scrollY);
-      });
-
-      window.addEventListener("load", function () {
-        const scrollPosition = sessionStorage.getItem("scrollPosition");
-
-        if (scrollPosition) {
-          window.scrollTo(0, scrollPosition);
-          sessionStorage.removeItem("scrollPosition");
-        }
-      });
-    </script>
   </body>
 </html>

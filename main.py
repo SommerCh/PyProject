@@ -20,7 +20,6 @@ class Buzzword:
         text = text.replace(old_word, new_word)
         return text
 
-    
 buzzword_detector = Buzzword(BUZZWORD)
 
 app = Flask(__name__)
@@ -28,16 +27,14 @@ app = Flask(__name__)
 @app.route("/", methods=["GET", "POST"])
 def home():
 
-    #     
+    # Værdi    
     text = ""
     found = []
     word_count = 0
     buzzword_number = 0
     can_send_button = True
-    color_text = ""
     status_text = ""
     status_color = ""
-    forslag = []
 
     # Hent
     if request.method == "POST":
@@ -75,12 +72,9 @@ def home():
         text = text,
         found = found,
         word_count = word_count,
-        buzzword_number = buzzword_number,
         can_send_button = can_send_button,
-        color_text = color_text,
         status_text = status_text,
         status_color = status_color,
-        forslag = forslag
     )
 
 app.run(port=5004)

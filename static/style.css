@@ -28,19 +28,6 @@ body {
   line-height: 1.7;
 }
 
-.mail-editor {
-  overflow: auto;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-  cursor: text;
-}
-
-.mail-editor:empty::before {
-  content: attr(data-placeholder);
-  color: #999999;
-  pointer-events: none;
-}
-
 .h3 {
   font-size: 12px;
 }
