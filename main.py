@@ -1,5 +1,7 @@
-from buzzword import BUZZWORDS
 from flask import Flask, render_template, request 
+
+from buzzword import BUZZWORDS
+
 
 class BuzzwordDetector:
     def __init__(self, wordlist):
@@ -21,6 +23,8 @@ class BuzzwordDetector:
 OK_AMOUNT = 2
 MAX_AMOUNT = 4
 
+
+
 def get_status(buzzword_count):
     if buzzword_count <= OK_AMOUNT:
         return {"text": "Godkendt", "color": "green", "send": True}
@@ -40,10 +44,12 @@ def handle_replace(text, form, buzzword_detector):
             text = buzzword_detector.replace_buzzword(text, old_word, new_word)
 
     return text
+
     
 buzzword_detector = BuzzwordDetector(BUZZWORDS)
 
 app = Flask(__name__)
+
 
 @app.route("/", methods=["GET", "POST"])
 def home():
@@ -62,7 +68,6 @@ def home():
         word_count = len(text.split()) 
         buzzword_count = len(found)
 
-
     status = get_status(buzzword_count)
     status_text = status["text"]
     status_color = status["color"]
@@ -79,5 +84,6 @@ def home():
         status_text = status_text,
         status_color = status_color,
     )
+
 
 app.run(port=5004)
