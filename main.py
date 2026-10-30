@@ -1,11 +1,10 @@
-from buzzword import BUZZWORD
+from buzzword import BUZZWORDS
 from flask import Flask, render_template, request 
 
 class BuzzwordDetector:
     def __init__(self, wordlist):
         self.buzzwords = wordlist
 
-    # Find ord
     def find_buzzwords(self, text):
         found_buzzwords = []
 
@@ -14,12 +13,11 @@ class BuzzwordDetector:
                 found_buzzwords.append(word)
         return found_buzzwords
     
-    # Erstat ord
     def replace_buzzword(self, text, old_word, new_word):
         text = text.replace(old_word, new_word)
         return text
 
-# Status 
+# Værdi for status 
 OK_AMOUNT = 2
 MAX_AMOUNT = 4
 
@@ -31,7 +29,7 @@ def get_status(buzzword_count):
         return {"text": "Bør forbedres", "color": "yellow", "send": True}
     return {"text": "For mange buzzwords", "color": "red", "send": False}
 
-# Erstat ord
+# Håndtere erstatning 
 def handle_replace(text, form, buzzword_detector):
     if "replace_word" in form:
         word_index = form["replace_word"]
@@ -43,7 +41,7 @@ def handle_replace(text, form, buzzword_detector):
 
     return text
     
-buzzword_detector = BuzzwordDetector(BUZZWORD)
+buzzword_detector = BuzzwordDetector(BUZZWORDS)
 
 app = Flask(__name__)
 
@@ -64,9 +62,8 @@ def home():
         word_count = len(text.split()) 
         buzzword_count = len(found)
 
-    # Tjek/opdatere status
+
     status = get_status(buzzword_count)
-    
     status_text = status["text"]
     status_color = status["color"]
     can_send_button = status["send"]   

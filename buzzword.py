@@ -1,4 +1,4 @@
-BUZZWORD = [
+BUZZWORDS = [
     "action plan", "agenda", "agile", "alignment", "ambition", "as-is", "autentisk", "autonomi", "benchmark", 
     "best practice", "big-picture", "bringe i spil", "business case", "buy-in", "bygge videre på", "check-in", 
     "circle back", "compliance", "cutting edge", "deep dive", "deliver", "disruption", "disruptiv", "diversitet", 
