@@ -3,7 +3,7 @@ BUZZWORD = [
     "best practice", "big-picture", "bringe i spil", "business case", "buy-in", "bygge videre på", "check-in", 
     "circle back", "compliance", "cutting edge", "deep dive", "deliver", "disruption", "disruptiv", "diversitet", 
     "driftsoptimering", "drill down", "growth", "driven", "dykke ned i", "dynamisk", "eksekvering", "end-to-end", 
-    "engagement", "EVP","experimentation", "fail fast", "fleksibel", "fleksible", "fokusområde", "follow-up", 
+    "engagement", "EVP", "experimentation", "fail fast", "fleksibel", "fleksible", "fokusområde", "follow-up", 
     "forandring", "forankring", "fremadskuende", "flow", "future", "målstregen", "game changer", "gap", "gevinst", 
     "extra mile", "governance", "gå i dybden", "gå på tværs", "handlingsplan", "hands-off", "hands-on", "harmoni", 
     "have fokus på", "helhedsorienteret", "helikopter", "high-level", "holistisk", "hybrid", "impact-driven", "implementering", 

@@ -1,7 +1,7 @@
 from buzzword import BUZZWORD
 from flask import Flask, render_template, request 
 
-class Buzzword:
+class BuzzwordDetector:
     def __init__(self, wordlist):
         self.buzzwords = wordlist
 
@@ -12,7 +12,6 @@ class Buzzword:
         for word in self.buzzwords:
             if word.lower() in text.lower():
                 found.append(word)
-
         return found
     
     # Erstat ord
@@ -20,53 +19,59 @@ class Buzzword:
         text = text.replace(old_word, new_word)
         return text
 
-buzzword_detector = Buzzword(BUZZWORD)
+# Status 
+OK_AMOUNT = 2
+MAX_AMOUNT = 4
+
+def check_status(buzzword_number):
+    if buzzword_number <= OK_AMOUNT:
+        return {"text": "Godkendt", "color": "green", "send": True}
+
+    if buzzword_number <= MAX_AMOUNT:
+        return {"text": "Bør forbedres", "color": "yellow", "send": True}
+    return {"text": "For mange buzzwords", "color": "red", "send": False}
+
+# Erstat ord
+def handle_replace(text, form):
+    if "replace_word" in form:
+        number = form["replace_word"]
+        old_word = form["old_word_" + number]
+        new_word = form["new_word_" + number]
+         
+        if new_word != "":
+            text = buzzword_detector.replace_buzzword(text, old_word, new_word)
+
+    return text
+    
+buzzword_detector = BuzzwordDetector(BUZZWORD)
 
 app = Flask(__name__)
 
 @app.route("/", methods=["GET", "POST"])
 def home():
 
-    # Værdi    
+    # Startværdier     
     text = ""
     found = []
     word_count = 0
     buzzword_number = 0
-    can_send_button = True
-    status_text = ""
-    status_color = ""
 
-    # Hent
     if request.method == "POST":
         text = request.form["mail"]
-
-        # Tilføj
-        if "replace_word" in request.form:
-            number = request.form["replace_word"]
-            old_word = request.form["old_word_" + number]
-            new_word = request.form["new_word_" + number]
-
-            if new_word != "":
-                text = buzzword_detector.replace_buzzword(text, old_word, new_word)
+        text = handle_replace(text, request.form)
 
         found = buzzword_detector.find_buzzwords(text) 
         word_count = len(text.split()) 
-        buzzword_number = len(found) 
+        buzzword_number = len(found)
 
-    # Antal buzzwords
-    if buzzword_number <= 2:
-        status_text = "Godkendt"
-        status_color = "green"
-        can_send_button = True
-    elif buzzword_number <= 4:
-        status_text = "Bør forbedres"
-        status_color = "yellow"
-        can_send_button = True
-    else:
-        status_text = "For mange buzzwords"
-        status_color = "red"
-        can_send_button = False
-
+    #Tjek/opdatere status
+    status = check_status(buzzword_number)
+    
+    status_text = status["text"]
+    status_color = status["color"]
+    can_send_button = status["send"]   
+     
+# Til HTML
     return render_template(
         "index.html",
         text = text,
