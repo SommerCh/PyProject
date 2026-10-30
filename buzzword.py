@@ -30,18 +30,3 @@ BUZZWORD = [
     "vækst", "work-life balance", "workflow", "zoome ind", "zoome ud", "åben dialog", "åbne op", "økosystem"
 ]
 
-FORSLAG = {
-    "action plan": "handlingsplan",
-    "agenda": "dagsorden",
-    "agile": "arbejde i korte forløb",
-    "alignment": "fælles forståelse", 
-    "ambition": "mål",
-    "API": "forbindelse mellem systemer",
-    "as-is": "nuværende situation",
-    "autentisk": "oprigtig",
-    "autonomi": "selvbestemmelse",
-    "benchmark": "sammenligningsgrundlag", 
-    "best practice": "afprøvet metode", 
-    "big-picture": "helhed", 
-    "bringe i spil": "bruge",
-}

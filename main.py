@@ -7,12 +7,12 @@ class BuzzwordDetector:
 
     # Find ord
     def find_buzzwords(self, text):
-        found = []
+        found_buzzwords = []
 
         for word in self.buzzwords:
             if word.lower() in text.lower():
-                found.append(word)
-        return found
+                found_buzzwords.append(word)
+        return found_buzzwords
     
     # Erstat ord
     def replace_buzzword(self, text, old_word, new_word):
@@ -23,11 +23,11 @@ class BuzzwordDetector:
 OK_AMOUNT = 2
 MAX_AMOUNT = 4
 
-def check_status(buzzword_number):
-    if buzzword_number <= OK_AMOUNT:
+def get_status(buzzword_count):
+    if buzzword_count <= OK_AMOUNT:
         return {"text": "Godkendt", "color": "green", "send": True}
 
-    if buzzword_number <= MAX_AMOUNT:
+    if buzzword_count <= MAX_AMOUNT:
         return {"text": "Bør forbedres", "color": "yellow", "send": True}
     return {"text": "For mange buzzwords", "color": "red", "send": False}
 
@@ -54,7 +54,7 @@ def home():
     text = ""
     found = []
     word_count = 0
-    buzzword_number = 0
+    buzzword_count = 0
 
     if request.method == "POST":
         text = request.form["mail"]
@@ -62,10 +62,10 @@ def home():
 
         found = buzzword_detector.find_buzzwords(text) 
         word_count = len(text.split()) 
-        buzzword_number = len(found)
+        buzzword_count = len(found)
 
     # Tjek/opdatere status
-    status = check_status(buzzword_number)
+    status = get_status(buzzword_count)
     
     status_text = status["text"]
     status_color = status["color"]
