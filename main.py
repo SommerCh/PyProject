@@ -24,7 +24,6 @@ OK_AMOUNT = 2
 MAX_AMOUNT = 4
 
 
-
 def get_status(buzzword_count):
     if buzzword_count <= OK_AMOUNT:
         return {"text": "Godkendt", "color": "green", "send": True}
