@@ -1,8 +1,5 @@
 from flask import Flask, render_template, request 
-
 from buzzword import BUZZWORDS
-
-
 class BuzzwordDetector:
     def __init__(self, wordlist):
         self.buzzwords = wordlist
@@ -23,16 +20,16 @@ class BuzzwordDetector:
 OK_AMOUNT = 2
 MAX_AMOUNT = 4
 
-
 def get_status(buzzword_count):
     if buzzword_count <= OK_AMOUNT:
         return {"text": "Godkendt", "color": "green", "send": True}
 
     if buzzword_count <= MAX_AMOUNT:
         return {"text": "Bør forbedres", "color": "yellow", "send": True}
+    
     return {"text": "For mange buzzwords", "color": "red", "send": False}
 
-# Håndtere erstatning 
+# Håndter erstatning 
 def handle_replace(text, form, buzzword_detector):
     if "replace_word" in form:
         word_index = form["replace_word"]
@@ -44,11 +41,9 @@ def handle_replace(text, form, buzzword_detector):
 
     return text
 
-    
 buzzword_detector = BuzzwordDetector(BUZZWORDS)
 
 app = Flask(__name__)
-
 
 @app.route("/", methods=["GET", "POST"])
 def home():
@@ -83,6 +78,5 @@ def home():
         status_text = status_text,
         status_color = status_color,
     )
-
 
 app.run(port=5004)
