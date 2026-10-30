@@ -32,11 +32,11 @@ def check_status(buzzword_number):
     return {"text": "For mange buzzwords", "color": "red", "send": False}
 
 # Erstat ord
-def handle_replace(text, form):
+def handle_replace(text, form, buzzword_detector):
     if "replace_word" in form:
-        number = form["replace_word"]
-        old_word = form["old_word_" + number]
-        new_word = form["new_word_" + number]
+        word_index = form["replace_word"]
+        old_word = form["old_word_" + word_index]
+        new_word = form["new_word_" + word_index]
          
         if new_word != "":
             text = buzzword_detector.replace_buzzword(text, old_word, new_word)
@@ -58,18 +58,19 @@ def home():
 
     if request.method == "POST":
         text = request.form["mail"]
-        text = handle_replace(text, request.form)
+        text = handle_replace(text, request.form, buzzword_detector)
 
         found = buzzword_detector.find_buzzwords(text) 
         word_count = len(text.split()) 
         buzzword_number = len(found)
 
-    #Tjek/opdatere status
+    # Tjek/opdatere status
     status = check_status(buzzword_number)
     
     status_text = status["text"]
     status_color = status["color"]
     can_send_button = status["send"]   
+
      
 # Til HTML
     return render_template(
