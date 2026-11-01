@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request 
 from buzzword import BUZZWORDS
+
 class BuzzwordDetector:
     def __init__(self, wordlist):
         self.buzzwords = wordlist
