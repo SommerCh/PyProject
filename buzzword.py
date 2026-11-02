@@ -9,7 +9,7 @@ BUZZWORDS = [
     "have fokus på", "helhedsorienteret", "helikopter", "high-level", "holistisk", "hybrid", "impact-driven", "implementering", 
     "indsatsområde", "indsigt", "initiativ", "innovativ", "insights", "iteration", "iterere", "ja-hatten", "journey", "key", 
     "kigge ind i", "klarhed", "komme hele vejen rundt", "komme i mål", "komme rundt om", "kommerciel", "kompetence", 
-    "konkurrence", "kontinuerlig", "kunde", "kvalitet", "lavthængende frugter", "lean", "ledelse", "legacy systems", 
+    "konkurrence", "kontinuerlig", "kunde", "kvalitet", "lavthængende frugter", "lean", "legacy systems", 
     "leverance", "lifecycle", "loop in", "low-hanging fruit", "loyalitet", "loyalty", "løfte blikket", "løsningsorienteret", 
     "management", "markedsposition", "merværdi", "metrics", "milepæl", "milestones", "mindset", "momentum", "MVP", 
     "målepunkter", "målretning", "målstyring", "målsætning", "need-to-know", "needs-based", "netværk", "next generation", 
